@@ -111,10 +111,6 @@ html[data-theme="dark"] .table tbody tr {
 	background: #131f32
 }
 
-html[data-theme="dark"] .table tbody tr:hover > * {
-	background-color: #1b2b42
-}
-
 html[data-theme="dark"] .table td {
 	color: #dbe5f3
 }
