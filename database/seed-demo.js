@@ -80,7 +80,7 @@ async function main() {
       release: 'after_competition'
     });
 
-    const correctCounts = [6, 5, 4, 4, 3, 3, 2, 2, 5, 4, 3, 1];
+    const correctCounts = [6, 5, 4, 3];
     for (let i = 0; i < teams.length; i++) {
       const startAt = new Date(2026, 9, 20, 10, 0, i * 7);
       const submittedAt = new Date(startAt.getTime() + 9 * 60 * 1000 + i * 1000);
@@ -104,7 +104,7 @@ async function main() {
     await conn.commit();
     console.log('Demo data added successfully.');
     console.log(`Teams created: ${teams.length} (1 per campus)`);
-    console.log(`Completed competition: ${completedTitle} (leaderboard has 12 results)`);
+    console.log(`Completed competition: ${completedTitle} (leaderboard has ${teams.length} results)`);
     console.log(`Upcoming competition: ${upcomingTitle} (starts ${upcomingStart.toLocaleString()})`);
     console.log('Team usernames: ' + teams.map(t => t.username).join(', '));
     console.log(`Shared temporary team password: ${demoPassword}`);

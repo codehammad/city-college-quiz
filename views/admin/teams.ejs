@@ -16,7 +16,7 @@
 							<div>
 								<h1>Teams</h1>
 								<p>One team is allowed per campus</p>
-							</div><button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add"><i
+							</div><button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add" <%= availableCampuses.length ? '' : 'disabled' %>><i
 									class="fa-solid fa-plus me-2"></i>Add team</button>
 						</div>
 						<div class="panel">
