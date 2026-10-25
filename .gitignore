@@ -5,3 +5,5 @@ node_modules/
 npm-debug.log*
 public/uploads/profiles/*
 !public/uploads/profiles/.gitkeep
+/database/city_college_quiz_backup.sql
+/city_college_quiz_data.zip
