@@ -1,0 +1,118 @@
+<%- include('../partials/header') %>
+	<div class="app-shell"><%- include('../partials/sidebar') %>
+			<main class="main">
+				<header class="topbar">
+					<div class="mobile-brand">City College <span>Quiz System</span></div><button class="theme-toggle"
+						type="button" aria-label="Switch to dark mode" aria-pressed="false"><i
+							class="fa-regular fa-moon"></i><span>Dark mode</span></button><span class="avatar">
+						<% if(user.profilePhoto){ %><img src="<%= user.profilePhoto %>" alt="">
+							<% }else{ %>
+								<%= user.name.slice(0,1).toUpperCase() %>
+									<% } %>
+					</span><span class="admin-label"><b>
+							<%= user.name %>
+						</b><small>Administrator</small></span>
+				</header>
+				<div class="content"><%- include('../partials/alerts') %>
+						<div class="page-heading">
+							<div>
+								<h1>Dashboard</h1>
+								<p>Welcome back, <%= user.name %>! Here's what's happening today.</p>
+							</div><a class="btn btn-primary" href="/admin/competitions/new"><i
+									class="fa-solid fa-plus me-2"></i>New competition</a>
+						</div>
+						<div class="stat-grid">
+							<% const cards = [
+								{ label: "Campuses", value: stats.campuses, icon: "fa-building-columns", color: "blue" },
+								{ label: "Total Teams", value: stats.teams, icon: "fa-people-group", color: "green" },
+								{ label: "Competitions", value: stats.competitions, icon: "fa-trophy", color: "purple" },
+								{ label: "Total Questions", value: stats.questions, icon: "fa-circle-question", color: "orange" }
+							]; cards.forEach(c=>{ %><div
+									class="stat-card <%= c.color %>">
+									<div class="stat-icon"><i class="fa-solid <%= c.icon %>"></i></div><span>
+										<%= c.label %>
+									</span><strong>
+										<%= c.value %>
+									</strong><small>Across City College</small>
+								</div>
+								<% }) %>
+						</div>
+						<div class="dashboard-grid">
+							<section class="panel">
+								<div class="panel-head">
+									<div>
+										<h3>Campus participation</h3><small>Teams registered at each campus</small>
+									</div><a href="/admin/campuses">View campuses</a>
+								</div>
+								<div class="campus-bars">
+									<% const colors=['#2875f5','#12b981','#8b5cf6','#f59e0b'];
+										campusStats.forEach((c,i)=>{ %><div class="campus-bar-row"><span
+												class="campus-dot" style="background:<%= colors[i] %>"></span><span>
+												<%= c.name %>
+											</span>
+											<div class="bar-bg"><i
+													style="width:<%= Math.max(8, Math.min(100,c.teams*18)) %>%;background:<%= colors[i] %>"></i>
+											</div><b>
+												<%= c.teams %>
+											</b>
+										</div>
+										<% }) %>
+								</div>
+							</section>
+							<section class="panel">
+								<div class="panel-head">
+									<div>
+										<h3>Quick actions</h3><small>Jump into the things you do most</small>
+									</div>
+								</div>
+								<div class="quick-grid"><a href="/admin/competitions/new"><i
+											class="fa-solid fa-trophy"></i> Create competition</a><a
+										href="/admin/campuses"><i class="fa-solid fa-building-columns"></i> Add
+										campus</a><a href="/admin/teams"><i class="fa-solid fa-people-group"></i>
+										Register team</a><a href="/admin/questions"><i
+											class="fa-solid fa-circle-question"></i> Add question</a></div>
+							</section>
+						</div>
+						<section class="panel mt-4">
+							<div class="panel-head">
+								<div>
+									<h3>Recent competitions</h3><small>Your latest quiz activity</small>
+								</div><a href="/admin/competitions">View all</a>
+							</div>
+							<div class="table-responsive">
+								<table class="table align-middle">
+									<thead>
+										<tr>
+											<th>Competition</th>
+											<th>Start date</th>
+											<th>Status</th>
+										</tr>
+									</thead>
+									<tbody>
+										<% recent.forEach(c=>{ %><tr>
+												<td><b>
+														<%= c.title %>
+													</b></td>
+												<td>
+													<%= new Date(c.start_at).toLocaleString() %>
+												</td>
+												<td><span class="badge-status <%= c.status.toLowerCase() %>">
+														<%= c.status %>
+													</span></td>
+											</tr>
+											<% }); if(!recent.length){ %>
+												<tr>
+													<td colspan="3" class="empty">No competitions yet. Create your first
+														one.</td>
+												</tr>
+												<% } %>
+									</tbody>
+								</table>
+							</div>
+						</section>
+				</div>
+			</main>
+	</div>
+	</body>
+
+	</html>

@@ -1,0 +1,79 @@
+<%- include('../partials/header') %>
+	<div class="app-shell"><%- include('../partials/sidebar') %>
+			<main class="main">
+				<header class="topbar"><button class="theme-toggle" type="button" aria-label="Switch to dark mode"
+						aria-pressed="false"><i class="fa-regular fa-moon"></i><span>Dark mode</span></button><span
+						class="avatar">
+						<% if(user.profilePhoto){ %><img src="<%= user.profilePhoto %>" alt="">
+							<% }else{ %>
+								<%= user.name[0] %>
+									<% } %>
+					</span><span class="admin-label"><b>
+							<%= user.name %>
+						</b><small>
+							<%= user.campus %>
+						</small></span></header>
+				<div class="content"><%- include('../partials/alerts') %>
+						<div class="page-heading">
+							<div>
+								<h1>Team dashboard</h1>
+								<p>
+									<%= user.name %> · <%= user.campus %>
+								</p>
+							</div><a class="btn btn-primary" href="/team/results">My results</a>
+						</div>
+						<section class="panel">
+							<div class="panel-head">
+								<div>
+									<h3>Competitions</h3><small>Available for your team</small>
+								</div>
+							</div>
+							<div class="table-responsive">
+								<table class="table align-middle">
+									<thead>
+										<tr>
+											<th>Competition</th>
+											<th>Category</th>
+											<th>Start</th>
+											<th>Duration</th>
+											<th>Action</th>
+										</tr>
+									</thead>
+									<tbody>
+										<% competitions.forEach(c=>{ %><tr>
+												<td><b>
+														<%= c.title %>
+													</b></td>
+												<td>
+													<%= c.category %>
+												</td>
+												<td>
+													<%= new Date(c.start_at).toLocaleString() %>
+												</td>
+												<td>
+													<%= c.duration_minutes %> minutes
+												</td>
+												<td>
+													<% if(c.submitted_at){ %><span
+															class="badge-status completed">Submitted</span>
+														<% }else{ %><a class="btn btn-sm btn-primary"
+																href="/quiz/<%= c.id %>">Open quiz</a>
+															<% } %>
+												</td>
+											</tr>
+											<% });if(!competitions.length){ %>
+												<tr>
+													<td class="empty" colspan="5">No competitions have been assigned to
+														your team yet.</td>
+												</tr>
+												<% } %>
+									</tbody>
+								</table>
+							</div>
+						</section>
+				</div>
+			</main>
+	</div>
+	</body>
+
+	</html>

@@ -1,0 +1,99 @@
+<%- include('../partials/header') %>
+	<div class="app-shell"><%- include('../partials/sidebar') %>
+			<main class="main">
+				<header class="topbar"><button class="theme-toggle" type="button" aria-label="Switch to dark mode"
+						aria-pressed="false"><i class="fa-regular fa-moon"></i><span>Dark mode</span></button><span
+						class="avatar">
+						<% if(user.profilePhoto){ %><img src="<%= user.profilePhoto %>" alt="">
+							<% }else{ %>
+								<%= user.name[0] %>
+									<% } %>
+					</span><span class="admin-label"><b>
+							<%= user.name %>
+						</b><small>
+							<%= user.campus %>
+						</small></span></header>
+				<div class="content"><%- include('../partials/alerts') %>
+						<div class="page-heading">
+							<div>
+								<h1>My results</h1>
+								<p>Your scores and competition standings</p>
+							</div><a class="btn btn-light border" href="/team">Back to dashboard</a>
+						</div>
+						<% if(pending){ %>
+							<div class="alert alert-info result-pending"><i
+									class="fa-regular fa-clock me-2"></i><span><b>
+										<%= pending %> result<%= pending===1?'':'s' %> pending
+									</b><small>Your submitted quiz score will appear when the admin completes that
+										competition.</small></span></div>
+							<% } %>
+								<div class="result-summary-grid">
+									<div class="result-summary"><span class="summary-icon blue"><i
+												class="fa-solid fa-file-circle-check"></i></span>
+										<div><small>Quizzes submitted</small><b>
+												<%= summary.played %>
+											</b></div>
+									</div>
+									<div class="result-summary"><span class="summary-icon purple"><i
+												class="fa-solid fa-star"></i></span>
+										<div><small>Best score</small><b>
+												<%= summary.bestScore %> pts
+											</b></div>
+									</div>
+									<div class="result-summary"><span class="summary-icon gold"><i
+												class="fa-solid fa-medal"></i></span>
+										<div><small>Best rank</small><b>
+												<%= summary.bestRank?'#'+summary.bestRank:'—' %>
+											</b></div>
+									</div>
+								</div>
+								<section class="result-list">
+									<% results.forEach(r=>{const
+										percent=r.question_count?Math.round(r.correct_count/r.question_count*100):0;%>
+										<article class="team-result-card">
+											<div class="result-rank-icon rank-tone-<%= r.team_rank %>"><span>
+													<%= r.team_rank===1?'👑':'#'+r.team_rank %>
+												</span><small>RANK</small></div>
+											<div class="team-result-info">
+												<div class="team-result-title">
+													<div><span class="result-category">
+															<%= r.category %>
+														</span>
+														<h2>
+															<%= r.title %>
+														</h2><small>Submitted <%= new
+																Date(r.submitted_at).toLocaleString() %></small>
+													</div>
+													<div class="result-score"><b>
+															<%= r.score %>
+														</b><small>POINTS</small></div>
+												</div>
+												<div class="result-progress-label"><span>
+														<%= r.correct_count %> of <%= r.question_count %> answers
+																correct
+													</span><b>
+														<%= percent %>%
+													</b></div>
+												<div class="progress result-progress">
+													<div class="progress-bar" style="width:<%= percent %>%"></div>
+												</div><a class="btn btn-sm btn-outline-primary mt-3 review-link"
+													href="/team/results/<%= r.competition_id %>/review"><i
+														class="fa-solid fa-list-check me-2"></i>Review answers</a>
+											</div>
+										</article>
+										<% }); if(!results.length&&!pending){ %>
+											<div class="empty-result panel"><span class="empty-result-icon"><i
+														class="fa-solid fa-trophy"></i></span>
+												<h2>No results yet</h2>
+												<p>When you submit a quiz, your score and competition rank will appear
+													here.</p><a class="btn btn-primary" href="/team">View
+													competitions</a>
+											</div>
+											<% } %>
+								</section>
+				</div>
+			</main>
+	</div>
+	</body>
+
+	</html>

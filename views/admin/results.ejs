@@ -1,0 +1,182 @@
+<%- include('../partials/header') %>
+	<div class="app-shell"><%- include('../partials/sidebar') %>
+			<main class="main">
+				<header class="topbar"><button class="theme-toggle" type="button" aria-label="Switch to dark mode"
+						aria-pressed="false"><i class="fa-regular fa-moon"></i><span>Dark mode</span></button><span
+						class="avatar">
+						<% if(user.profilePhoto){ %><img src="<%= user.profilePhoto %>" alt="">
+							<% }else{ %>
+								<%= user.name[0] %>
+									<% } %>
+					</span><span class="admin-label"><b>
+							<%= user.name %>
+						</b><small>Administrator</small></span></header>
+				<div class="content"><%- include('../partials/alerts') %>
+						<div class="page-heading">
+							<div>
+								<h1>Leaderboard</h1>
+								<p>Team results with earlier submission time as the tie-break</p>
+							</div>
+							<form method="get" action="/admin/results" class="d-flex gap-2"><select class="form-select"
+									name="competition_id" aria-label="Filter by competition">
+									<option value="">All competitions</option>
+									<% competitions.forEach(c=>{ %><option value="<%= c.id %>"
+											<%=selected&&selected.id===c.id?'selected':'' %>><%= c.title %>
+										</option>
+										<% }) %>
+								</select><button class="btn btn-primary">Show</button></form>
+						</div>
+						<div class="result-summary-grid admin-result-summary">
+							<div class="result-summary"><span class="summary-icon blue"><i
+										class="fa-solid fa-paper-plane"></i></span>
+								<div><small>Quiz submissions</small><b>
+										<%= summary.submissions %>
+									</b></div>
+							</div>
+							<div class="result-summary"><span class="summary-icon green"><i
+										class="fa-solid fa-building-columns"></i></span>
+								<div><small>Campuses represented</small><b>
+										<%= summary.campuses %> / 4
+									</b></div>
+							</div>
+							<div class="result-summary"><span class="summary-icon gold"><i
+										class="fa-solid fa-trophy"></i></span>
+								<div><small>Highest score</small><b>
+										<%= summary.topScore %> pts
+									</b></div>
+							</div>
+						</div>
+						<% if(selected){ %>
+							<div class="d-flex align-items-center gap-2 mb-3">
+								<h2 class="fs-5 mb-0">
+									<%= selected.title %>
+								</h2><span class="badge-status <%= selected.status.toLowerCase() %>">
+									<%= selected.status %>
+								</span>
+								<% if(selected.status!=='Completed' ){ %><span
+										class="badge-status scheduled">Provisional results</span>
+									<% } %>
+							</div>
+							<% if(selected.status==='Completed' &&topTeams.length){ %>
+								<div class="alert alert-success"><i class="fa-solid fa-trophy me-2"></i>Competition
+									winner: <strong>
+										<%= topTeams[0].team_name %>
+									</strong> with <strong>
+										<%= topTeams[0].score %> points
+									</strong>.</div>
+								<% } %>
+									<% if(topTeams.length){ %>
+										<div class="podium-grid mb-4">
+											<% topTeams.forEach((r,i)=>{ %><div class="podium-card podium-<%= i+1 %>">
+													<span class="podium-medal">
+														<%= ['🥇','🥈','🥉'][i] %>
+													</span><strong>
+														<%= r.team_name %>
+													</strong><small>
+														<%= r.campus %>
+													</small><b>
+														<%= r.score %> points
+													</b><span>Rank #<%= r.team_rank %></span></div>
+												<% }) %>
+										</div>
+										<% } %>
+											<% } %>
+												<section class="panel mb-4">
+													<div class="panel-head">
+														<div>
+										<h3>Campus rankings</h3><small>
+											<% const campusRankSubtitle = selected
+												? "For " + selected.title
+												: "Combined across competitions"; %>
+											<%= campusRankSubtitle %> · total and average points
+															</small>
+														</div>
+													</div>
+													<div class="table-responsive">
+														<table class="table align-middle">
+															<thead>
+																<tr>
+																	<th>Rank</th>
+																	<th>Campus</th>
+																	<th>Submissions</th>
+																	<th>Total points</th>
+																	<th>Average points</th>
+																</tr>
+															</thead>
+															<tbody>
+																<% campusRanks.forEach((c,i)=>{ %><tr>
+																		<td><span class="rank rank-<%= i+1 %>">
+																				<%= i+1 %>
+																			</span></td>
+																		<td><b>
+																				<%= c.campus %>
+																			</b></td>
+																		<td>
+																			<%= c.submissions %>
+																		</td>
+																		<td>
+																			<%= c.total_score %>
+																		</td>
+																		<td>
+																			<%= Number(c.average_score).toFixed(1) %>
+																		</td>
+																	</tr>
+																	<% }) %>
+															</tbody>
+														</table>
+													</div>
+												</section>
+												<div class="panel">
+													<div class="table-responsive">
+														<table class="table align-middle">
+															<thead>
+																<tr>
+																	<th>Rank</th>
+																	<th>Team</th>
+																	<th>Campus</th>
+																	<th>Competition</th>
+																	<th>Correct</th>
+																	<th>Score</th>
+																	<th>Submitted</th>
+																</tr>
+															</thead>
+															<tbody>
+																<% results.forEach(r=>{ %><tr>
+																		<td><span class="rank rank-<%= r.team_rank %>">
+																				<%= r.team_rank %>
+																			</span></td>
+																		<td><b>
+																				<%= r.team_name %>
+																			</b></td>
+																		<td>
+																			<%= r.campus %>
+																		</td>
+																		<td>
+																			<%= r.title %>
+																		</td>
+																		<td>
+																			<%= r.correct_count %>
+																		</td>
+																		<td><b>
+																				<%= r.score %>
+																			</b></td>
+																		<td>
+												<%= new Date(r.submitted_at).toLocaleString() %>
+																		</td>
+																	</tr>
+																	<% }); if(!results.length){ %>
+																		<tr>
+																			<td class="empty" colspan="7">No submitted
+																				results for this selection yet.</td>
+																		</tr>
+																		<% } %>
+															</tbody>
+														</table>
+													</div>
+												</div>
+				</div>
+			</main>
+	</div>
+	</body>
+
+	</html>

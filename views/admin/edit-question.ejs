@@ -1,0 +1,49 @@
+<%- include('../partials/header') %>
+	<div class="app-shell"><%- include('../partials/sidebar') %>
+			<main class="main">
+				<header class="topbar"><button class="theme-toggle" type="button" aria-label="Switch to dark mode"
+						aria-pressed="false"><i class="fa-regular fa-moon"></i><span>Dark mode</span></button><span
+						class="avatar">
+						<% if(user.profilePhoto){ %><img src="<%= user.profilePhoto %>" alt="">
+							<% }else{ %>
+								<%= user.name[0] %>
+									<% } %>
+					</span><span class="admin-label"><b>
+							<%= user.name %>
+						</b><small>Administrator</small></span></header>
+				<div class="content"><%- include('../partials/alerts') %>
+						<div class="page-heading">
+							<div>
+								<h1>Edit question</h1>
+								<p>
+									<%= question.competition %>
+								</p>
+							</div><a class="btn btn-light border" href="/admin/questions">Back to questions</a>
+						</div>
+						<div class="panel form-panel">
+							<form method="post" action="/admin/questions/<%= question.id %>/update"><input type="hidden"
+									name="_csrf" value="<%= csrfToken %>"><label
+									class="form-label">Question</label><textarea class="form-control mb-3"
+									name="question_text" required><%= question.question_text %></textarea>
+								<div class="row g-3">
+									<% ['a','b','c','d'].forEach((key,i)=>{ %><div class="col-md-6"><label
+												class="form-label">Option <%= key.toUpperCase() %></label><input
+												class="form-control" name="<%= key %>"
+												value="<%= options[i]?.option_text || '' %>" required></div>
+										<% }) %>
+								</div><label class="form-label mt-3">Correct answer</label><select
+									class="form-select mb-4" name="correct">
+									<% options.forEach((option,i)=>{ %><option value="<%= i+1 %>"
+											<%=option.is_correct?'selected':'' %>>Option <%= String.fromCharCode(65+i)
+												%>
+										</option>
+										<% }) %>
+								</select><button class="btn btn-primary">Save question</button>
+							</form>
+						</div>
+				</div>
+			</main>
+	</div>
+	</body>
+
+	</html>

@@ -1,0 +1,43 @@
+<aside class="sidebar">
+   <a href="<%= user.role==='admin'?'/admin':'/team' %>" class="brand"
+      ><span class="brand-logo"
+         ><img src="/images/logo.jpg" alt="City College" /></span
+      ><span><b>City College</b><small>Quiz System</small></span></a
+   >
+   <nav>
+      <% const links = user.role === 'admin'
+         ? [
+             ['Dashboard', '/admin', 'fa-chart-line'],
+             ['Campuses', '/admin/campuses', 'fa-building-columns'],
+             ['Teams', '/admin/teams', 'fa-people-group'],
+             ['Competitions', '/admin/competitions', 'fa-trophy'],
+             ['Questions', '/admin/questions', 'fa-circle-question'],
+             ['Results', '/admin/results', 'fa-chart-simple']
+           ]
+         : [
+             ['Dashboard', '/team', 'fa-chart-line'],
+             ['My Results', '/team/results', 'fa-chart-simple']
+           ];
+      links.forEach(([label,url,icon])=>{ %><a
+         class="nav-link <%= active===label?'selected':'' %>"
+         href="<%= url %>"
+         ><i class="fa-solid <%= icon %>"></i>
+         <%= label %>
+      </a>
+      <% }) %>
+   </nav>
+   <div class="side-bottom">
+      <a
+         class="side-setting <%= active==='Settings'?'selected':'' %>"
+         href="/settings"
+         ><i class="fa-solid fa-gear"></i> Settings</a
+      >
+      <form method="post" action="/logout">
+         <input type="hidden" name="_csrf" value="<%= csrfToken %>" /><button
+            class="logout"
+         >
+            <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout
+         </button>
+      </form>
+   </div>
+</aside>

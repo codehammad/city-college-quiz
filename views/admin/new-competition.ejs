@@ -1,0 +1,70 @@
+<%- include('../partials/header') %>
+	<div class="app-shell"><%- include('../partials/sidebar') %>
+			<main class="main">
+				<header class="topbar"><button class="theme-toggle" type="button" aria-label="Switch to dark mode"
+						aria-pressed="false"><i class="fa-regular fa-moon"></i><span>Dark mode</span></button><span
+						class="avatar">
+						<% if(user.profilePhoto){ %><img src="<%= user.profilePhoto %>" alt="">
+							<% }else{ %>
+								<%= user.name[0] %>
+									<% } %>
+					</span><span class="admin-label"><b>
+							<%= user.name %>
+						</b><small>Administrator</small></span></header>
+				<div class="content"><%- include('../partials/alerts') %>
+						<div class="page-heading">
+							<div>
+								<h1>Create new competition</h1>
+								<p>Set the details and choose participating teams</p>
+							</div><a class="btn btn-light border" href="/admin/competitions">Back</a>
+						</div>
+						<div class="panel form-panel">
+							<form method="post" action="/admin/competitions"><input type="hidden" name="_csrf"
+									value="<%= csrfToken %>">
+								<div class="row g-3">
+									<div class="col-md-8"><label class="form-label">Competition title *</label><input
+											class="form-control" name="title" required placeholder="e.g. Science Quiz">
+									</div>
+									<div class="col-md-4"><label class="form-label">Subject / category *</label><input
+											class="form-control" name="category" required placeholder="Science"></div>
+									<div class="col-12"><label class="form-label">Description</label><textarea
+											class="form-control" name="description" rows="3"
+											placeholder="What will teams compete in?"></textarea></div>
+									<div class="col-md-4"><label class="form-label">Start date and time *</label><input
+											class="form-control" type="datetime-local" name="start_at" required></div>
+									<div class="col-md-4"><label class="form-label">Duration (minutes) *</label><input
+											class="form-control" type="number" min="1" max="180" name="duration_minutes"
+											value="15" required></div>
+									<div class="col-md-4"><label class="form-label">Marks per question *</label><input
+											class="form-control" type="number" min="1" max="100"
+											name="marks_per_question" value="1" required></div>
+									<div class="col-md-6"><label class="form-label">Release results</label><select
+											class="form-select" name="results_release">
+											<option value="immediate">Show each result immediately</option>
+											<option value="after_competition">Show results when admin completes
+												competition</option>
+										</select></div>
+									<div class="col-12"><label class="form-label">Participating teams *</label>
+										<div class="team-select">
+											<% teams.forEach(t=>{ %><label class="team-choice"><input type="checkbox"
+														name="team_ids" value="<%= t.id %>"><span><b>
+															<%= t.team_name %>
+														</b><small>
+															<%= t.campus %>
+														</small></span></label>
+												<% }); if(!teams.length){ %><span class="text-muted">Register teams
+														before creating a competition.</span>
+													<% } %>
+										</div>
+									</div>
+									<div class="col-12 d-flex justify-content-end"><button
+											class="btn btn-primary px-4">Create competition</button></div>
+								</div>
+							</form>
+						</div>
+				</div>
+			</main>
+	</div>
+	</body>
+
+	</html>

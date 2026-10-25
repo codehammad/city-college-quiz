@@ -1,0 +1,53 @@
+<%- include('../partials/header') %>
+	<main class="quiz-wrap">
+		<header class="quiz-top"><a class="brand" href="/team"><span class="brand-logo"><img src="/images/logo.jpg"
+						alt="City College"></span><span><b>City College</b><small>Quiz System</small></span></a><button
+				class="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false"><i
+					class="fa-regular fa-moon"></i><span>Dark mode</span></button><span class="quiz-user"><span
+					class="avatar">
+					<% if(user.profilePhoto){ %><img src="<%= user.profilePhoto %>" alt="">
+						<% }else{ %>
+							<%= user.name[0] %>
+								<% } %>
+				</span><b>
+					<%= user.name %>
+				</b></span></header>
+		<div class="quiz-layout">
+			<section class="quiz-card">
+				<div class="quiz-title">
+					<div><small>
+							<%= competition.category %> COMPETITION
+						</small>
+						<h1>
+							<%= competition.title %>
+						</h1>
+					</div>
+					<div class="timer" data-minutes="<%= competition.duration_minutes %>"
+						data-started="<%= new Date(startedAt).toISOString() %>" data-attempt="<%= attemptId %>"
+						id="timer"><i class="fa-regular fa-clock"></i> <span>--:--</span></div>
+				</div>
+				<div class="quiz-progress"><span id="progressLabel"></span>
+					<div class="progress">
+						<div id="progressBar" class="progress-bar"></div>
+					</div>
+				</div>
+				<div id="questionArea"></div>
+				<div class="quiz-controls"><button id="previous" class="btn btn-light border">Previous</button><span
+						id="questionCount"></span><button id="next" class="btn btn-primary">Next question <i
+							class="fa-solid fa-arrow-right ms-2"></i></button></div>
+			</section>
+			<aside class="quiz-card question-nav">
+				<h3>Question panel</h3>
+				<p>Choose a number to jump to a question</p>
+				<div id="questionNumbers"></div>
+				<div class="legend"><span><i class="answered"></i> Answered</span><span><i class="current"></i>
+						Current</span><span><i class="unanswered"></i> Not answered</span></div><button id="submitQuiz"
+					class="btn btn-danger w-100">Submit quiz</button>
+			</aside>
+		</div>
+	</main>
+	<script>window.quizData =<% - JSON.stringify({ questions, answers, attemptId, competitionId: competition.id, csrfToken }) %>;</script>
+	<script src="/js/quiz.js"></script>
+	</body>
+
+	</html>

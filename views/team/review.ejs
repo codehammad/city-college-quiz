@@ -1,0 +1,86 @@
+<%- include('../partials/header') %>
+	<div class="app-shell"><%- include('../partials/sidebar') %>
+			<main class="main">
+				<header class="topbar"><button class="theme-toggle" type="button" aria-label="Switch to dark mode"
+						aria-pressed="false"><i class="fa-regular fa-moon"></i><span>Dark mode</span></button><span
+						class="avatar">
+						<% if(user.profilePhoto){ %><img src="<%= user.profilePhoto %>" alt="">
+							<% }else{ %>
+								<%= user.name[0] %>
+									<% } %>
+					</span><span class="admin-label"><b>
+							<%= user.name %>
+						</b><small>
+							<%= user.campus %>
+						</small></span></header>
+				<div class="content">
+					<div class="page-heading">
+						<div><span class="result-category">
+								<%= result.category %>
+							</span>
+							<h1>
+								<%= result.title %> · Answer review
+							</h1>
+							<p>See your selected answers alongside the correct answers</p>
+						</div><a class="btn btn-light border" href="/team/results">Back to results</a>
+					</div>
+					<div class="review-summary">
+						<div class="review-total"><span>Your score</span><b>
+								<%= result.score %>
+							</b><small>points</small></div>
+						<div class="review-summary-stat"><span class="review-dot right"></span>
+							<div><b>
+									<%= result.correct_count %>
+								</b><small>Correct</small></div>
+						</div>
+						<div class="review-summary-stat"><span class="review-dot wrong"></span>
+							<div><b>
+									<%= questions.length-result.correct_count %>
+								</b><small>Wrong or unanswered</small></div>
+						</div>
+						<div class="review-summary-stat"><span class="review-dot neutral"></span>
+							<div><b>
+									<%= questions.length %>
+								</b><small>Total questions</small></div>
+						</div>
+					</div>
+					<section class="review-list">
+						<% questions.forEach((q,index)=>{const selected=q.options.find(o=>o.isSelected);const
+							isCorrect=Boolean(selected&&selected.isCorrect);%><article class="review-question">
+								<div class="review-question-heading"><span class="question-index">Q<%= index+1 %></span>
+									<h2>
+										<%= q.text %>
+									</h2><span
+										class="answer-status <%= isCorrect?'status-correct':selected?'status-wrong':'status-empty' %>">
+										<%= isCorrect?'Correct':selected?'Incorrect':'Not answered' %>
+									</span>
+								</div>
+								<div class="review-options">
+									<% q.options.forEach((option,optionIndex)=>{const
+										classes=option.isCorrect?'is-correct':option.isSelected?'is-wrong':'';%><div
+											class="review-option <%= classes %>"><span class="option-letter">
+												<%= String.fromCharCode(65+optionIndex) %>
+											</span><span>
+												<%= option.text %>
+											</span>
+											<% if(option.isCorrect){ %><b class="option-note"><i
+														class="fa-solid fa-check"></i> Correct answer</b>
+												<% }else if(option.isSelected){ %><b class="option-note"><i
+															class="fa-solid fa-xmark"></i> Your answer</b>
+													<% } %>
+										</div>
+										<% }) %>
+								</div>
+								<% if(!selected){ %>
+									<div class="unanswered-note"><i class="fa-regular fa-circle"></i> No answer was
+										selected for this question.</div>
+									<% } %>
+							</article>
+							<% }) %>
+					</section>
+				</div>
+			</main>
+	</div>
+	</body>
+
+	</html>

@@ -1,0 +1,96 @@
+<%- include('partials/header') %>
+	<div class="app-shell"><%- include('partials/sidebar') %>
+			<main class="main">
+				<header class="topbar"><button class="theme-toggle" type="button" aria-label="Switch to dark mode"
+						aria-pressed="false"><i class="fa-regular fa-moon"></i><span>Dark mode</span></button><span
+						class="avatar">
+						<% if(user.profilePhoto){ %><img src="<%= user.profilePhoto %>" alt="">
+							<% }else{ %>
+								<%= user.name[0] %>
+									<% } %>
+					</span><span class="admin-label"><b>
+							<%= user.name %>
+						</b><small>
+							<%= user.role==='admin' ?'Administrator':account.campus %>
+						</small></span></header>
+				<div class="content"><%- include('partials/alerts') %>
+						<div class="page-heading">
+							<div>
+								<h1>Settings</h1>
+								<p>Manage your profile and sign-in password</p>
+							</div>
+						</div>
+						<div class="settings-grid">
+							<section class="panel settings-card">
+								<div class="settings-heading"><span class="settings-icon"><i
+											class="fa-regular fa-user"></i></span>
+									<div>
+										<h3>Account profile</h3><small>Your account details</small>
+									</div>
+								</div>
+								<div class="profile-photo-section">
+									<div class="profile-photo-preview" id="photoPreview">
+										<% if(account.profile_photo){ %><img src="<%= account.profile_photo %>"
+												alt="Current profile photo">
+											<% }else{ %><span><i class="fa-regular fa-user"></i></span>
+												<% } %>
+									</div>
+									<form id="profilePhotoForm" method="post" action="/settings/photo"
+										enctype="multipart/form-data"><input type="hidden" name="_csrf"
+											value="<%= csrfToken %>"><label class="form-label"
+											for="profile_photo">Profile photo</label><input id="profile_photo"
+											class="form-control" type="file" name="profile_photo"
+											accept="image/jpeg,image/png,image/webp" required><small
+											class="settings-help">JPG, PNG, or WebP. Maximum size: 4 MB.</small>
+										<div id="photoMessage" class="profile-photo-message" aria-live="polite"></div>
+										<button id="photoUploadButton" class="btn btn-primary mt-2"><i
+												class="fa-solid fa-upload me-2"></i>Upload photo</button>
+									</form>
+								</div>
+								<div class="account-details">
+									<div><span>Username</span><b>
+											<%= account.username %>
+										</b></div>
+									<% if(user.role==='admin' ){ %>
+										<form method="post" action="/settings/profile"><input type="hidden" name="_csrf"
+												value="<%= csrfToken %>"><label class="form-label"
+												for="full_name">Display name</label><input id="full_name"
+												class="form-control" name="full_name" value="<%= account.name %>"
+												minlength="2" maxlength="120" required><button
+												class="btn btn-primary mt-3">Save profile</button></form>
+										<% }else{ %>
+											<div><span>Team name</span><b>
+													<%= account.name %>
+												</b></div>
+											<div><span>Campus</span><b>
+													<%= account.campus %>
+												</b></div>
+											<% } %>
+								</div>
+							</section>
+							<section class="panel settings-card">
+								<div class="settings-heading"><span class="settings-icon"><i
+											class="fa-solid fa-lock"></i></span>
+									<div>
+										<h3>Change password</h3><small>Use at least 8 characters</small>
+									</div>
+								</div>
+								<form method="post" action="/settings/password"><input type="hidden" name="_csrf"
+										value="<%= csrfToken %>"><label class="form-label">Current
+										password</label><input class="form-control mb-3" type="password"
+										name="current_password" autocomplete="current-password" required><label
+										class="form-label">New password</label><input class="form-control mb-3"
+										type="password" name="new_password" minlength="8" autocomplete="new-password"
+										required><label class="form-label">Confirm new password</label><input
+										class="form-control" type="password" name="confirm_password" minlength="8"
+										autocomplete="new-password" required><button class="btn btn-primary mt-3">Update
+										password</button></form>
+							</section>
+						</div>
+				</div>
+			</main>
+	</div>
+	<script src="/js/profile-photo.js"></script>
+	</body>
+
+	</html>

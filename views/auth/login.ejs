@@ -1,0 +1,49 @@
+<%- include('../partials/header') %>
+	<main class="login-shell">
+		<section class="login-art"><a class="brand light" href="/"><span class="brand-logo"><img src="/images/logo.jpg"
+						alt="City College"></span><span><b>City College</b><small>Quiz System</small></span></a>
+			<div class="art-copy">
+				<div class="eyebrow">KNOWLEDGE • TEAMWORK • EXCELLENCE</div>
+				<h1>Connect 4 Campuses.<br><span>Compete as One.</span></h1>
+				<p>The college-wide quiz platform built to bring bright minds together.</p>
+				<ul>
+					<li><i class="fa-solid fa-building-columns"></i> Four connected campuses</li>
+					<li><i class="fa-solid fa-people-group"></i> Teams competing together</li>
+					<li><i class="fa-solid fa-trophy"></i> Live competitions and results</li>
+				</ul>
+			</div>
+			<div class="art-orb orb-one"></div>
+			<div class="art-orb orb-two"></div>
+			<div class="campus-photo"></div>
+		</section>
+		<section class="login-side"><button class="theme-toggle login-theme-toggle" type="button"
+				aria-label="Switch to dark mode" aria-pressed="false"><i class="fa-regular fa-moon"></i><span>Dark
+					mode</span></button>
+			<div class="login-card">
+				<div class="login-icon"><i class="fa-solid fa-shield-halved"></i></div>
+				<h2>
+					<%= mode==='team' ?'Team Login':'Admin Login' %>
+				</h2>
+				<p class="muted">Access your City College quiz dashboard</p><%- include('../partials/alerts') %>
+					<div class="role-tabs"><a class="<%= mode==='admin'?'on':'' %>" href="/login">Admin</a><a
+							class="<%= mode==='team'?'on':'' %>" href="/login?role=team">Team</a></div>
+					<form method="post" action="/login"><input type="hidden" name="role" value="<%= mode %>">
+						<div class="mb-3"><label class="form-label">Username</label>
+							<div class="input-icon"><i class="fa-regular fa-user"></i><input class="form-control"
+									name="username" placeholder="Enter your username" required autocomplete="username">
+							</div>
+						</div>
+						<div class="mb-3"><label class="form-label">Password</label>
+							<div class="input-icon"><i class="fa-solid fa-lock"></i><input class="form-control"
+									type="password" name="password" placeholder="Enter password" required
+									autocomplete="current-password"></div>
+						</div><button class="btn btn-primary w-100 py-2">Sign in <i
+								class="fa-solid fa-arrow-right ms-2"></i></button>
+					</form>
+					<div class="login-foot">Secure access for City College participants</div>
+			</div>
+		</section>
+	</main>
+	</body>
+
+	</html>

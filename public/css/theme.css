@@ -1,0 +1,264 @@
+.theme-toggle {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 9px;
+	margin-right: auto;
+	padding: 9px 12px;
+	border: 1px solid #e1e8f2;
+	border-radius: 9px;
+	background: #fff;
+	color: #344867;
+	font: 600 12px 'DM Sans', sans-serif;
+	cursor: pointer;
+	transition: background .18s, border-color .18s, color .18s
+}
+
+.theme-toggle:hover {
+	background: #f3f7ff;
+	border-color: #cbd9ee
+}
+
+.theme-toggle>i {
+	color: #5e79a1;
+	font-size: 14px
+}
+
+.login-side {
+	position: relative
+}
+
+.login-theme-toggle {
+	position: absolute;
+	top: 24px;
+	right: 28px;
+	margin: 0
+}
+
+html[data-theme="dark"] {
+	color-scheme: dark;
+	--ink: #e4ebf6;
+	--muted: #9baac0;
+	--line: #2a3850;
+	--bg: #0c1422;
+	--shadow: 0 8px 28px rgba(0, 0, 0, .2)
+}
+
+html[data-theme="dark"] body {
+	background: #0c1422;
+	color: #e4ebf6
+}
+
+html[data-theme="dark"] .main,
+html[data-theme="dark"] .login-shell,
+html[data-theme="dark"] .login-side {
+	background: #0c1422
+}
+
+html[data-theme="dark"] .quiz-wrap {
+	background: #0c1422
+}
+
+html[data-theme="dark"] .quiz-top {
+	background: #111c30;
+	border-bottom-color: #2a3850
+}
+
+html[data-theme="dark"] .quiz-top .brand,
+html[data-theme="dark"] .quiz-user b {
+	color: #e4ebf6
+}
+
+html[data-theme="dark"] .topbar,
+html[data-theme="dark"] .panel,
+html[data-theme="dark"] .settings-card,
+html[data-theme="dark"] .team-result-card,
+html[data-theme="dark"] .empty-result,
+html[data-theme="dark"] .result-summary,
+html[data-theme="dark"] .podium-card,
+html[data-theme="dark"] .quiz-card,
+html[data-theme="dark"] .question-box,
+html[data-theme="dark"] .review-question,
+html[data-theme="dark"] .login-card,
+html[data-theme="dark"] .modal-content,
+html[data-theme="dark"] .profile-dropdown,
+html[data-theme="dark"] .profile-trigger {
+	background: #131f32;
+	color: #e4ebf6;
+	border-color: #2a3850
+}
+
+html[data-theme="dark"] .topbar {
+	border-bottom-color: #2a3850
+}
+
+html[data-theme="dark"] .table {
+	--bs-table-bg: transparent;
+	--bs-table-color: #dbe5f3;
+	--bs-table-border-color: #293750;
+	--bs-table-striped-bg: #18263a;
+	--bs-table-hover-bg: #1b2b42;
+	color: #dbe5f3
+}
+
+html[data-theme="dark"] .table thead th {
+	background: #18263a;
+	color: #aebbd0;
+	border-color: #2a3850
+}
+
+html[data-theme="dark"] .table tbody tr {
+	background: #131f32
+}
+
+html[data-theme="dark"] .table td {
+	color: #dbe5f3
+}
+
+html[data-theme="dark"] .form-control,
+html[data-theme="dark"] .form-select,
+html[data-theme="dark"] .input-icon input {
+	background-color: #0d1829;
+	color: #e4ebf6;
+	border-color: #34445e
+}
+
+html[data-theme="dark"] .form-control::placeholder {
+	color: #8292aa
+}
+
+html[data-theme="dark"] .form-control:focus,
+html[data-theme="dark"] .form-select:focus {
+	background-color: #0d1829;
+	color: #fff
+}
+
+html[data-theme="dark"] .form-label,
+html[data-theme="dark"] .panel-head h3,
+html[data-theme="dark"] .page-heading h1,
+html[data-theme="dark"] .settings-heading h3,
+html[data-theme="dark"] .team-result-title h2,
+html[data-theme="dark"] .review-question h2,
+html[data-theme="dark"] .quiz-card h1,
+html[data-theme="dark"] .quiz-card h2,
+html[data-theme="dark"] .quiz-card h3 {
+	color: #e4ebf6
+}
+
+html[data-theme="dark"] .team-choice,
+html[data-theme="dark"] .quick-grid a,
+html[data-theme="dark"] .review-option,
+html[data-theme="dark"] .answer-option,
+html[data-theme="dark"] .question-nav .q-number {
+	background: #17253a;
+	color: #dbe5f3;
+	border-color: #30415b
+}
+
+html[data-theme="dark"] .answer-option:hover,
+html[data-theme="dark"] .answer-option.chosen {
+	background: #1d3659;
+	border-color: #4e80cc
+}
+
+html[data-theme="dark"] .q-number.current {
+	background: #2468ed;
+	color: #fff
+}
+
+html[data-theme="dark"] .q-number.answered {
+	background: #159568;
+	color: #fff
+}
+
+html[data-theme="dark"] .quiz-progress span,
+html[data-theme="dark"] .legend {
+	color: #a9b8cd
+}
+
+html[data-theme="dark"] .review-option.is-correct {
+	background: #123b34;
+	border-color: #19785f
+}
+
+html[data-theme="dark"] .review-option.is-wrong {
+	background: #43242c;
+	border-color: #8c3b49
+}
+
+html[data-theme="dark"] .profile-trigger:hover,
+html[data-theme="dark"] .profile-dropdown a:hover,
+html[data-theme="dark"] .profile-dropdown button:hover {
+	background: #1c2b42;
+	color: #fff
+}
+
+html[data-theme="dark"] .btn-light,
+html[data-theme="dark"] .btn-outline-primary {
+	background: #1a2a41;
+	color: #dbe5f3;
+	border-color: #3a4e6b
+}
+
+html[data-theme="dark"] .btn-light:hover,
+html[data-theme="dark"] .btn-outline-primary:hover {
+	background: #253955;
+	color: #fff
+}
+
+html[data-theme="dark"] .modal-header,
+html[data-theme="dark"] .modal-footer {
+	border-color: #2a3850
+}
+
+html[data-theme="dark"] .btn-close {
+	filter: invert(1) grayscale(1)
+}
+
+html[data-theme="dark"] .alert-info {
+	background: #152c45;
+	color: #c6dcf7;
+	border-color: #24486e
+}
+
+html[data-theme="dark"] .alert-success {
+	background: #12372f;
+	color: #bbefdb;
+	border-color: #1d624e
+}
+
+html[data-theme="dark"] .settings-icon,
+html[data-theme="dark"] .settings-icon i {
+	color: #a9c5ff
+}
+
+html[data-theme="dark"] .profile-photo-preview {
+	background: #1d2e47
+}
+
+html[data-theme="dark"] .theme-toggle {
+	background: #18263a;
+	color: #dbe5f3;
+	border-color: #354760
+}
+
+html[data-theme="dark"] .theme-toggle:hover {
+	background: #223550;
+	border-color: #506888
+}
+
+html[data-theme="dark"] .theme-toggle>i {
+	color: #f5c96b
+}
+
+@media(max-width:600px) {
+	.theme-toggle {
+		padding: 8px 10px;
+		font-size: 11px
+	}
+
+	.login-theme-toggle {
+		top: 16px;
+		right: 14px
+	}
+}

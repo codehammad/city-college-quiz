@@ -1,0 +1,93 @@
+<%- include('../partials/header') %>
+	<div class="app-shell"><%- include('../partials/sidebar') %>
+			<main class="main">
+				<header class="topbar"><button class="theme-toggle" type="button" aria-label="Switch to dark mode"
+						aria-pressed="false"><i class="fa-regular fa-moon"></i><span>Dark mode</span></button><span
+						class="avatar">
+						<% if(user.profilePhoto){ %><img src="<%= user.profilePhoto %>" alt="">
+							<% }else{ %>
+								<%= user.name[0] %>
+									<% } %>
+					</span><span class="admin-label"><b>
+							<%= user.name %>
+						</b><small>Administrator</small></span></header>
+				<div class="content"><%- include('../partials/alerts') %>
+						<div class="page-heading">
+							<div>
+								<h1>Competitions</h1>
+								<p>Plan and manage college quiz events</p>
+							</div><a class="btn btn-primary" href="/admin/competitions/new"><i
+									class="fa-solid fa-plus me-2"></i>Create competition</a>
+						</div>
+						<div class="panel">
+							<div class="table-responsive">
+								<table class="table align-middle">
+									<thead>
+										<tr>
+											<th>Competition</th>
+											<th>Category</th>
+											<th>Start date</th>
+											<th>Duration</th>
+											<th>Status</th>
+											<th>Manage</th>
+										</tr>
+									</thead>
+									<tbody>
+										<% competitions.forEach(c=>{ %><tr>
+												<td><b>
+														<%= c.title %>
+													</b></td>
+												<td>
+													<%= c.category %>
+												</td>
+												<td>
+													<%= new Date(c.start_at).toLocaleString() %>
+												</td>
+												<td>
+													<%= c.duration_minutes %> min
+												</td>
+												<td><span class="badge-status <%= c.status.toLowerCase() %>">
+														<%= c.status %>
+													</span></td>
+												<td>
+													<div class="d-flex gap-2"><a
+															class="icon-btn d-inline-grid place-items-center"
+															href="/admin/competitions/<%= c.id %>/edit"
+															title="Edit competition"><i class="fa-solid fa-pen"></i></a>
+														<form method="post"
+															action="/admin/competitions/<%= c.id %>/status"><input
+																type="hidden" name="_csrf"
+																value="<%= csrfToken %>"><select
+																class="form-select form-select-sm" name="status"
+																onchange="this.form.submit()">
+																<% ['Draft','Scheduled','Live','Completed'].forEach(s=>{
+																	%><option <%=c.status===s?'selected':'' %>><%= s %>
+																	</option>
+																	<% }) %>
+															</select></form>
+														<form method="post"
+															action="/admin/competitions/<%= c.id %>/delete"
+															onsubmit="return confirm('Delete this competition?')"><input
+																type="hidden" name="_csrf"
+																value="<%= csrfToken %>"><button
+																class="icon-btn danger"><i
+																	class="fa-regular fa-trash-can"></i></button></form>
+													</div>
+												</td>
+											</tr>
+											<% }); if(!competitions.length){ %>
+												<tr>
+													<td class="empty" colspan="6">No competitions yet. Create one to
+														invite your teams.</td>
+												</tr>
+												<% } %>
+									</tbody>
+								</table>
+							</div>
+						</div>
+				</div>
+			</main>
+	</div>
+	</body>
+
+	</html>
