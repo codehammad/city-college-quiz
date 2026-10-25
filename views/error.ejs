@@ -1,13 +1,25 @@
-<%- include('partials/header') %>
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title><%= title %> · City College Quiz</title>
+	<script>try { document.documentElement.dataset.theme = localStorage.getItem('city-quiz-theme') || 'light' } catch (e) { }</script>
+	<link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="/vendor/fontawesome/css/all.min.css">
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/theme.css">
+	<script defer src="/js/theme.js"></script>
+</head>
+
+<body>
 	<main class="error-page">
 		<div class="login-icon"><i class="fa-solid fa-circle-exclamation"></i></div>
-		<h1>
-			<%= title %>
-		</h1>
-		<p>
-			<%= message %>
-		</p><a class="btn btn-primary" href="/">Return to City College Quiz</a>
+		<h1><%= title %></h1>
+		<p><%= message %></p>
+		<a class="btn btn-primary" href="/">Return to City College Quiz</a>
 	</main>
-	</body>
+</body>
 
-	</html>
+</html>

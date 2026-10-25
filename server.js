@@ -59,6 +59,7 @@ app.use(require("./routes/healthRoutes"));
 app.use((req, res) => res.status(404).render("error", { title: "Page not found", message: "The page you requested could not be found." }));
 app.use((err, req, res, next) => {
   console.error(err);
+  if (res.headersSent) return next(err);
   res.status(500).render("error", { title: "Something went wrong", message: process.env.NODE_ENV === "production" ? "Please try again later." : err.message });
 });
 
