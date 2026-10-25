@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS teams (
  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, campus_id INT UNSIGNED NOT NULL,
  team_name VARCHAR(100) NOT NULL, username VARCHAR(60) NOT NULL UNIQUE,
  password_hash VARCHAR(255) NOT NULL, profile_photo VARCHAR(255) NULL, is_active BOOLEAN NOT NULL DEFAULT TRUE,
- created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, UNIQUE KEY uq_team_campus_name (campus_id,team_name),
+ created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, UNIQUE KEY uq_one_team_per_campus (campus_id),
  CONSTRAINT fk_team_campus FOREIGN KEY (campus_id) REFERENCES campuses(id)
 );
 CREATE TABLE IF NOT EXISTS competitions (

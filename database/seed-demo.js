@@ -5,10 +5,10 @@ const db = require('../config/db');
 const completedTitle = 'Inter-Campus General Knowledge Challenge';
 const upcomingTitle = 'City College Science Quiz';
 const teamNames = [
-  { campus: 'Lahore Campus', teams: [['Team Alpha', 'central_alpha'], ['Team Beta', 'central_beta'], ['Team Gamma', 'central_gamma']] },
-  { campus: 'Karachi Campus', teams: [['Team Phoenix', 'north_phoenix'], ['Team Warriors', 'north_warriors'], ['Team Legends', 'north_legends']] },
-  { campus: 'Islamabad Campus', teams: [['Team Eagle', 'east_eagle'], ['Team Thunder', 'east_thunder'], ['Team Vision', 'east_vision']] },
-  { campus: 'Peshawar Campus', teams: [['Team Spartans', 'west_spartans'], ['Team Titans', 'west_titans'], ['Team Royals', 'west_royals']] }
+  { campus: 'Lahore Campus', teams: [['Team Alpha', 'central_alpha']] },
+  { campus: 'Karachi Campus', teams: [['Team Phoenix', 'north_phoenix']] },
+  { campus: 'Islamabad Campus', teams: [['Team Eagle', 'east_eagle']] },
+  { campus: 'Peshawar Campus', teams: [['Team Spartans', 'west_spartans']] }
 ];
 const generalQuestions = [
   ['Which is the largest ocean on Earth?', ['Atlantic Ocean', 'Pacific Ocean', 'Indian Ocean', 'Arctic Ocean'], 1],
@@ -103,7 +103,7 @@ async function main() {
     });
     await conn.commit();
     console.log('Demo data added successfully.');
-    console.log(`Teams created: ${teams.length} (3 per campus)`);
+    console.log(`Teams created: ${teams.length} (1 per campus)`);
     console.log(`Completed competition: ${completedTitle} (leaderboard has 12 results)`);
     console.log(`Upcoming competition: ${upcomingTitle} (starts ${upcomingStart.toLocaleString()})`);
     console.log('Team usernames: ' + teams.map(t => t.username).join(', '));

@@ -44,11 +44,11 @@ A student-friendly quiz competition application built with Node.js, Express, EJS
 5. Set the competition start time. Teams can open their assigned quiz when its start time arrives.
 6. Teams see released scores and their rank under **My results**. Admins can view the team leaderboard and campus rankings under **Results**.
 
-The four sample campuses in Pakistan (Lahore, Karachi, Islamabad, and Peshawar) are added by `database/seed.sql`. Add, edit, or deactivate campus records from the Campuses page.
+The four sample campuses in Pakistan (Lahore, Karachi, Islamabad, and Peshawar) are added by `database/seed.sql`. Each campus can have one team. Existing databases should run `database/migrations/002-one-team-per-campus.sql` once after confirming there are no duplicate campus teams.
 
 ### Add persistent demonstration records
 
-After database setup and admin creation, run `npm run seed-demo` once. This adds three teams per campus, a completed general-knowledge competition with saved answers and leaderboard results, and an upcoming science quiz. Team passwords use `cityteam123` by default (`DEFAULT_TEAM_PASSWORD` in `.env`). The seed checks for existing demo competitions and does not add duplicate rows if run again.
+After database setup and admin creation, run `npm run seed-demo` once. This adds one team per campus, a completed general-knowledge competition with saved answers and leaderboard results, and an upcoming science quiz. Team passwords use `cityteam123` by default (`DEFAULT_TEAM_PASSWORD` in `.env`). The seed checks for existing demo competitions and does not add duplicate rows if run again.
 
 ## Main files
 

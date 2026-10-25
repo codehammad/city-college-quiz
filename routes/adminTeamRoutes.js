@@ -16,11 +16,15 @@ router.get("/admin/teams", adminOnly, async (req, res, next) => {
     const [campuses] = await db.query(
       "SELECT id,name FROM campuses WHERE is_active=1"
     );
+    const [availableCampuses] = await db.query(
+      "SELECT c.id,c.name FROM campuses c WHERE c.is_active=1 AND NOT EXISTS (SELECT 1 FROM teams t WHERE t.campus_id=c.id)"
+    );
     page(req, res, "admin/teams", {
       title: "Teams",
       active: "Teams",
       teams,
       campuses,
+      availableCampuses,
       defaultTeamPassword,
     });
   } catch (e) {
@@ -37,6 +41,11 @@ router.post("/admin/teams", adminOnly, async (req, res) => {
       throw new Error(
         "Fill all fields. Password must be at least 8 characters."
       );
+    const [[existingTeam]] = await db.execute(
+      "SELECT id FROM teams WHERE campus_id=?",
+      [campusId]
+    );
+    if (existingTeam) throw new Error("This campus already has a team.");
     const hash = await bcrypt.hash(password, 12);
     await db.execute(
       "INSERT INTO teams (campus_id,team_name,username,password_hash) VALUES (?,?,?,?)",
@@ -47,7 +56,7 @@ router.post("/admin/teams", adminOnly, async (req, res) => {
     req.flash(
       "error",
       e.code === "ER_DUP_ENTRY"
-        ? "Team name or username already exists."
+        ? "This campus already has a team, or that username is already in use."
         : e.message
     );
   }
@@ -107,7 +116,7 @@ router.post("/admin/teams/:id/update", adminOnly, async (req, res) => {
     req.flash(
       "error",
       e.code === "ER_DUP_ENTRY"
-        ? "Team name or username already exists."
+        ? "This campus already has a team, or that username is already in use."
         : e.message
     );
   }

@@ -15,7 +15,7 @@
 						<div class="page-heading">
 							<div>
 								<h1>Teams</h1>
-								<p>Register and manage campus quiz teams</p>
+								<p>One team is allowed per campus</p>
 							</div><button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#add"><i
 									class="fa-solid fa-plus me-2"></i>Add team</button>
 						</div>
@@ -88,7 +88,7 @@
 						class="form-label">Team name</label><input class="form-control mb-3" name="team_name"
 						required><label class="form-label">Campus</label><select class="form-select mb-3"
 						name="campus_id" required>
-						<% campuses.forEach(c=>{ %><option value="<%= c.id %>">
+						<% availableCampuses.forEach(c=>{ %><option value="<%= c.id %>">
 								<%= c.name %>
 							</option>
 							<% }) %>
