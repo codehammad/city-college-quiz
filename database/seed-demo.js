@@ -1,15 +1,14 @@
 require('dotenv').config();
 const bcrypt = require('bcryptjs');
-const crypto = require('crypto');
 const db = require('../config/db');
 
 const completedTitle = 'Inter-Campus General Knowledge Challenge';
 const upcomingTitle = 'City College Science Quiz';
 const teamNames = [
-  { campus: 'Central Campus', teams: [['Team Alpha', 'central_alpha'], ['Team Beta', 'central_beta'], ['Team Gamma', 'central_gamma']] },
-  { campus: 'North Campus', teams: [['Team Phoenix', 'north_phoenix'], ['Team Warriors', 'north_warriors'], ['Team Legends', 'north_legends']] },
-  { campus: 'East Campus', teams: [['Team Eagle', 'east_eagle'], ['Team Thunder', 'east_thunder'], ['Team Vision', 'east_vision']] },
-  { campus: 'West Campus', teams: [['Team Spartans', 'west_spartans'], ['Team Titans', 'west_titans'], ['Team Royals', 'west_royals']] }
+  { campus: 'Lahore Campus', teams: [['Team Alpha', 'central_alpha'], ['Team Beta', 'central_beta'], ['Team Gamma', 'central_gamma']] },
+  { campus: 'Karachi Campus', teams: [['Team Phoenix', 'north_phoenix'], ['Team Warriors', 'north_warriors'], ['Team Legends', 'north_legends']] },
+  { campus: 'Islamabad Campus', teams: [['Team Eagle', 'east_eagle'], ['Team Thunder', 'east_thunder'], ['Team Vision', 'east_vision']] },
+  { campus: 'Peshawar Campus', teams: [['Team Spartans', 'west_spartans'], ['Team Titans', 'west_titans'], ['Team Royals', 'west_royals']] }
 ];
 const generalQuestions = [
   ['Which is the largest ocean on Earth?', ['Atlantic Ocean', 'Pacific Ocean', 'Indian Ocean', 'Arctic Ocean'], 1],
@@ -51,7 +50,7 @@ async function addCompetition(conn, { title, category, startAt, status, question
 
 async function main() {
   const conn = await db.getConnection();
-  let demoPassword;
+  const demoPassword = process.env.DEFAULT_TEAM_PASSWORD || 'cityteam123';
   try {
     const [existing] = await conn.execute('SELECT id FROM competitions WHERE title IN (?,?)', [completedTitle, upcomingTitle]);
     if (existing.length) throw new Error('Demo records already exist. No rows were changed.');
@@ -59,7 +58,6 @@ async function main() {
     const campusIds = new Map(campuses.map(c => [c.name, c.id]));
     for (const campus of teamNames) if (!campusIds.has(campus.campus)) throw new Error(`Sample campus is missing: ${campus.campus}. Run database/seed.sql first.`);
 
-    demoPassword = crypto.randomBytes(18).toString('base64url') + '!A1';
     const passwordHash = await bcrypt.hash(demoPassword, 12);
     await conn.beginTransaction();
     const teams = [];

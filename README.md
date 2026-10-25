@@ -9,7 +9,7 @@ A student-friendly quiz competition application built with Node.js, Express, EJS
 
 ## Setup
 
-1. Install Node.js from [nodejs.org](https://nodejs.org/) and install MySQL Community Server.
+1. Install Node.js from [nodejs.org](https://nodejs.org/) and install MySQL Community Server (or start MySQL from XAMPP).
 2. Create the database schema. In a terminal from this project folder run:
 
    ```bash
@@ -44,11 +44,11 @@ A student-friendly quiz competition application built with Node.js, Express, EJS
 5. Set the competition start time. Teams can open their assigned quiz when its start time arrives.
 6. Teams see released scores and their rank under **My results**. Admins can view the team leaderboard and campus rankings under **Results**.
 
-The four sample campuses are added by `database/seed.sql`. Add, edit, or deactivate campus records from the Campuses page.
+The four sample campuses in Pakistan (Lahore, Karachi, Islamabad, and Peshawar) are added by `database/seed.sql`. Add, edit, or deactivate campus records from the Campuses page.
 
 ### Add persistent demonstration records
 
-After database setup and admin creation, run `npm run seed-demo` once. This adds three teams per campus, a completed general-knowledge competition with saved answers and leaderboard results, and an upcoming science quiz. The command generates bcrypt hashes for the team passwords and prints a shared temporary team password once. Save that password if you plan to demonstrate team sign-in. The seed checks for existing demo competitions and does not add duplicate rows if run again.
+After database setup and admin creation, run `npm run seed-demo` once. This adds three teams per campus, a completed general-knowledge competition with saved answers and leaderboard results, and an upcoming science quiz. Team passwords use `cityteam123` by default (`DEFAULT_TEAM_PASSWORD` in `.env`). The seed checks for existing demo competitions and does not add duplicate rows if run again.
 
 ## Main files
 

@@ -93,9 +93,9 @@
 							</option>
 							<% }) %>
 					</select><label class="form-label">Login username</label><input class="form-control mb-3"
-						name="username" required><label class="form-label">Temporary password (8+
-						characters)</label><input class="form-control" name="password" type="password" minlength="8"
-						required></div>
+									name="username" required><label class="form-label">Team password (default:
+										cityteam123)</label><input class="form-control" name="password" type="text" minlength="8"
+										value="<%= defaultTeamPassword %>"></div>
 				<div class="modal-footer"><button class="btn btn-primary">Register team</button></div>
 			</form>
 		</div>

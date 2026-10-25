@@ -6,6 +6,7 @@ const db = require("../config/db");
 const { requireRole } = require("../middleware/auth");
 const { page, clean } = require("../utils/helpers");
 const adminOnly = requireRole("admin");
+const defaultTeamPassword = process.env.DEFAULT_TEAM_PASSWORD || "cityteam123";
 
 router.get("/admin/teams", adminOnly, async (req, res, next) => {
   try {
@@ -20,6 +21,7 @@ router.get("/admin/teams", adminOnly, async (req, res, next) => {
       active: "Teams",
       teams,
       campuses,
+      defaultTeamPassword,
     });
   } catch (e) {
     next(e);
@@ -29,7 +31,7 @@ router.post("/admin/teams", adminOnly, async (req, res) => {
   try {
     const name = clean(req.body.team_name),
       username = clean(req.body.username),
-      password = req.body.password || "",
+      password = req.body.password || defaultTeamPassword,
       campusId = Number(req.body.campus_id);
     if (!name || !username || password.length < 8 || !campusId)
       throw new Error(
