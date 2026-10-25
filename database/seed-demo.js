@@ -2,8 +2,8 @@ require('dotenv').config();
 const bcrypt = require('bcryptjs');
 const db = require('../config/db');
 
-const completedTitle = 'Inter-Campus General Knowledge Challenge';
-const upcomingTitle = 'City College Science Quiz';
+const completedTitle = 'General Knowledge Challenge';
+const upcomingTitle = 'Science Quiz';
 const teamNames = [
   { campus: 'Lahore Campus', teams: [['Team Alpha', 'central_alpha']] },
   { campus: 'Karachi Campus', teams: [['Team Phoenix', 'north_phoenix']] },
