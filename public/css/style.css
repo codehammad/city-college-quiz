@@ -1,4 +1,20 @@
 
+@font-face {
+	font-family: 'DM Sans';
+	font-style: normal;
+	font-weight: 400 700;
+	font-display: swap;
+	src: url('/fonts/dm-sans-latin.woff2') format('woff2')
+}
+
+@font-face {
+	font-family: 'Plus Jakarta Sans';
+	font-style: normal;
+	font-weight: 500 800;
+	font-display: swap;
+	src: url('/fonts/plus-jakarta-sans-latin.woff2') format('woff2')
+}
+
 :root {
 	--navy: #0d2348;
 	--blue: #2468ed;
@@ -16,7 +32,7 @@
 body {
 	margin: 0;
 	background: var(--bg);
-	font-family: 'Segoe UI', Arial, sans-serif;
+	font-family: 'DM Sans', sans-serif;
 	color: var(--ink);
 	font-size: 14px
 }
@@ -27,7 +43,7 @@ h3,
 h4,
 b,
 strong {
-	font-family: 'Segoe UI', Arial, sans-serif
+	font-family: 'Plus Jakarta Sans', sans-serif
 }
 
 a {
@@ -217,7 +233,8 @@ a {
 .btn {
 	border-radius: 7px;
 	font-size: 13px;
-	font-weight: 600
+	font-weight: 600;
+	transition: transform .16s ease, box-shadow .16s ease, background-color .16s ease
 }
 
 .btn-primary {
@@ -226,7 +243,9 @@ a {
 }
 
 .btn-primary:hover {
-	background: #1659d9
+	background: #1659d9;
+	transform: translateY(-1px);
+	box-shadow: 0 5px 12px #2468ed30
 }
 
 .stat-grid {
@@ -242,7 +261,13 @@ a {
 	box-shadow: var(--shadow);
 	position: relative;
 	overflow: hidden;
-	min-height: 143px
+	min-height: 143px;
+	transition: transform .18s ease, box-shadow .18s ease
+}
+
+.stat-card:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 14px 28px #1e41702a
 }
 
 .stat-card:after {
@@ -317,7 +342,13 @@ a {
 	border: 1px solid var(--line);
 	border-radius: 10px;
 	padding: 19px 20px;
-	box-shadow: var(--shadow)
+	box-shadow: var(--shadow);
+	transition: transform .18s ease, box-shadow .18s ease
+}
+
+.panel:hover {
+	transform: translateY(-1px);
+	box-shadow: 0 12px 28px rgba(30, 65, 120, .11)
 }
 
 .panel-head {
@@ -465,7 +496,13 @@ a {
 	border: 0;
 	border-radius: 7px;
 	background: #edf4ff;
-	color: #2875f5
+	color: #2875f5;
+	transition: transform .16s ease, filter .16s ease
+}
+
+.icon-btn:hover {
+	transform: translateY(-1px);
+	filter: brightness(.96)
 }
 
 .icon-btn.danger {
@@ -488,7 +525,8 @@ a {
 	border-color: #dfe6f0;
 	border-radius: 7px;
 	padding: 10px 12px;
-	font-size: 13px
+	font-size: 13px;
+	transition: border-color .16s ease, box-shadow .16s ease
 }
 
 .form-control:focus,
@@ -510,7 +548,14 @@ a {
 	border: 1px solid var(--line);
 	padding: 11px;
 	border-radius: 8px;
-	cursor: pointer
+	cursor: pointer;
+	transition: transform .16s ease, border-color .16s ease, box-shadow .16s ease
+}
+
+.team-choice:hover {
+	transform: translateY(-2px);
+	border-color: #a9c5f6;
+	box-shadow: 0 5px 14px #2468ed12
 }
 
 .team-choice b,
@@ -1858,6 +1903,17 @@ a {
 .status-empty {
 	background: #f0f3f7;
 	color: #69778b
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		transition-duration: .01ms !important;
+		animation-duration: .01ms !important;
+		animation-iteration-count: 1 !important;
+		scroll-behavior: auto !important
+	}
 }
 
 .review-options {

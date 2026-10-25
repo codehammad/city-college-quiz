@@ -1,20 +1,20 @@
-# City College Quiz System
+# City College Quiz
 
-A college quiz app built with Node.js, Express, EJS, and MySQL. Bootstrap, icons, and page styles are stored in `public/`, so the interface works without a CDN or internet connection.
+This website lets an admin make quizzes for campus teams. Teams sign in, answer questions, and see their results.
 
-## Run on Windows with XAMPP
+## Start it with XAMPP
 
-1. Start **MySQL** in the XAMPP Control Panel, open XAMPP Shell, and go to this project folder.
-2. Create the database and sample campuses:
+1. Start **MySQL** in the XAMPP Control Panel. Open **XAMPP Shell** and go to the project folder.
+2. Make the database and add the sample campuses:
 
    ```bat
    mysql -u root -p < database/schema.sql
    mysql -u root -p city_college_quiz < database/seed.sql
    ```
 
-   If the MySQL root account has no password, press Enter when prompted. For an existing database, run the needed file from `database/migrations/` once instead of creating the schema again.
+   If MySQL asks for a password and you have not set one, just press Enter.
 
-3. Copy `.env.example` to `.env`. Set the MySQL password and a private `SESSION_SECRET`.
+3. Copy `.env.example` and name the copy `.env`. Set your MySQL password there.
 4. In XAMPP Shell, run:
 
    ```bat
@@ -23,22 +23,26 @@ A college quiz app built with Node.js, Express, EJS, and MySQL. Bootstrap, icons
    npm run dev
    ```
 
-5. Open `http://localhost:3000`. New team accounts use `cityteam123` unless changed in `.env` or the team form.
+5. Open `http://localhost:3000` in your browser.
 
-## Working flow
+New teams use `cityteam123` as their password unless you change it in `.env` or on the team form. Bootstrap, icons, and the fonts are saved in the project, so the pages do not need internet access.
 
-**Browser → Express route → MySQL → EJS page.** Express receives each request, checks sign-in and permissions, then a feature route reads or updates MySQL. EJS turns the saved data into the page shown in the browser. During a quiz, answers are saved to MySQL; the server scores them on submission and saves the result.
+## How it works
 
-Admins manage campuses, one team per campus, competitions, questions, and result release. Teams sign in, take assigned quizzes, then view released scores and answer reviews.
+**Browser → Express → MySQL → EJS page**
 
-## Move the data to another PC
+The browser sends a request. Express checks it and runs the right route. The route reads or saves data in MySQL. EJS uses that data to show the page. When a team submits a quiz, the server checks the answers and saves the score.
 
-On the old PC, export the `city_college_quiz` database from phpMyAdmin. On the new PC, start XAMPP MySQL, create/select a database with that name in phpMyAdmin, and import the exported `.sql` file. This brings existing teams, quizzes, and results; `schema.sql` and `seed.sql` are only for a fresh setup.
+Admins add campuses, one team for each campus, competitions, and questions. Teams take their assigned quizzes and see results when they are released.
 
-## Project map
+## Use the same data on another PC
 
-- `server.js` – Express setup and app startup
-- `routes/` – login, admin, team, quiz, and result handlers
-- `views/` – EJS page templates
-- `public/css/`, `public/js/`, `public/vendor/` – styles, browser scripts, and local libraries
-- `database/` – schema, sample data, and updates for existing databases
+On the old PC, use phpMyAdmin to export the `city_college_quiz` database as an `.sql` file. On the new PC, start MySQL, create a database named `city_college_quiz`, and import that file in phpMyAdmin. This copies your teams, quizzes, and results too.
+
+## Where files are
+
+- `server.js` starts the app.
+- `routes/` contains the code for each part of the app.
+- `views/` contains the page designs.
+- `public/` contains styles, browser code, fonts, and libraries.
+- `database/` contains database setup files.
