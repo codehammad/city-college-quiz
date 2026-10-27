@@ -13,7 +13,7 @@ city-college-quiz/
 │   └── auth.js                Login, role checks, and form token checks
 ├── routes/                    URL handling and the related database work
 │   ├── authRoutes.js          Login and logout
-│   ├── settingsRoutes.js      Account settings, password, and profile photo
+│   ├── settingsRoutes.js      Account settings, admin password, and profile photo
 │   ├── dashboardRoutes.js     Admin dashboard
 │   ├── campusRoutes.js        Campus management
 │   ├── adminTeamRoutes.js     Admin tools for creating and managing teams
@@ -27,8 +27,8 @@ city-college-quiz/
 │   └── helpers.js             Shared page-rendering and form-text helpers
 ├── views/                     EJS pages (HTML with a few dynamic tags)
 ├── public/
-│   ├── css/                   Page design and light/dark themes
-│   ├── js/                    Browser behavior such as quiz and theme toggle
+│   ├── css/                   Page design
+│   ├── js/                    Browser behavior such as quiz controls
 │   ├── images/                Logo and other images
 │   └── uploads/profiles/      Uploaded profile photos
 ├── database/
@@ -55,7 +55,7 @@ In short: **browser form → route → MySQL → EJS page**.
 - To change a URL, validation rule, or database query, find its feature file under `routes/`.
 - To change the database connection, open `config/db.js`.
 - To change who can open a page, look at the role middleware in `middleware/auth.js` and the route file.
-- To change colors and spacing, edit `public/css/style.css` or `public/css/theme.css`.
+- To change colors and spacing, edit `public/css/style.css`.
 - To change something that happens in the browser, look in `public/js/`.
 - To add or change database tables, edit `database/schema.sql`; existing databases may also need a migration in `database/migrations/`.
 

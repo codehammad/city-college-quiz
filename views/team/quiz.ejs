@@ -1,9 +1,7 @@
 <%- include('../partials/header') %>
 	<main class="quiz-wrap">
 		<header class="quiz-top"><a class="brand" href="/team"><span class="brand-logo"><img src="/images/logo.jpg"
-						alt="City College"></span><span><b>City College</b><small>Quiz System</small></span></a><button
-				class="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false"><i
-					class="fa-regular fa-moon"></i><span>Dark mode</span></button><span class="quiz-user"><span
+						alt="City College"></span><span><b>City College</b><small>Quiz System</small></span></a><span class="top-spacer"></span><span class="quiz-user"><span
 					class="avatar">
 					<% if(user.profilePhoto){ %><img src="<%= user.profilePhoto %>" alt="">
 						<% }else{ %>

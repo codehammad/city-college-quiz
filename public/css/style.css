@@ -1411,6 +1411,10 @@ a {
 	max-width: 1000px
 }
 
+.settings-grid.team-settings-grid {
+	grid-template-columns: minmax(0, 700px)
+}
+
 .settings-card {
 	padding: 22px
 }

@@ -1,8 +1,7 @@
 <%- include('../partials/header') %>
 	<div class="app-shell"><%- include('../partials/sidebar') %>
 			<main class="main">
-				<header class="topbar"><button class="theme-toggle" type="button" aria-label="Switch to dark mode"
-						aria-pressed="false"><i class="fa-regular fa-moon"></i><span>Dark mode</span></button><span
+				<header class="topbar"><span class="top-spacer"></span><span
 						class="avatar">
 						<% if(user.profilePhoto){ %><img src="<%= user.profilePhoto %>" alt="">
 							<% }else{ %>

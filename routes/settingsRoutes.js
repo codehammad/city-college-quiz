@@ -159,7 +159,7 @@ router.post("/settings/profile", requireRole("admin"), async (req, res) => {
   }
   res.redirect("/settings");
 });
-router.post("/settings/password", requireLogin, async (req, res) => {
+router.post("/settings/password", requireRole("admin"), async (req, res) => {
   try {
     const current = req.body.current_password || "",
       password = req.body.new_password || "",
@@ -168,15 +168,14 @@ router.post("/settings/password", requireLogin, async (req, res) => {
       throw new Error("New password must have at least 8 characters.");
     if (password !== confirm)
       throw new Error("New password and confirmation do not match.");
-    const table = req.session.user.role === "admin" ? "admins" : "teams";
     const [[row]] = await db.execute(
-      `SELECT password_hash FROM ${table} WHERE id=?`,
+      "SELECT password_hash FROM admins WHERE id=?",
       [req.session.user.id]
     );
     if (!row || !(await bcrypt.compare(current, row.password_hash)))
       throw new Error("Current password is incorrect.");
     const hash = await bcrypt.hash(password, 12);
-    await db.execute(`UPDATE ${table} SET password_hash=? WHERE id=?`, [
+    await db.execute("UPDATE admins SET password_hash=? WHERE id=?", [
       hash,
       req.session.user.id,
     ]);
