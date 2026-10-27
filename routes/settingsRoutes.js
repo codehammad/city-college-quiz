@@ -5,7 +5,6 @@ const fs = require("fs/promises");
 const path = require("path");
 const crypto = require("crypto");
 const multer = require("multer");
-const bcrypt = require("bcryptjs");
 const db = require("../config/db");
 const { requireLogin, requireRole } = require("../middleware/auth");
 const { page, clean } = require("../utils/helpers");
@@ -159,31 +158,4 @@ router.post("/settings/profile", requireRole("admin"), async (req, res) => {
   }
   res.redirect("/settings");
 });
-router.post("/settings/password", requireRole("admin"), async (req, res) => {
-  try {
-    const current = req.body.current_password || "",
-      password = req.body.new_password || "",
-      confirm = req.body.confirm_password || "";
-    if (password.length < 8)
-      throw new Error("New password must have at least 8 characters.");
-    if (password !== confirm)
-      throw new Error("New password and confirmation do not match.");
-    const [[row]] = await db.execute(
-      "SELECT password_hash FROM admins WHERE id=?",
-      [req.session.user.id]
-    );
-    if (!row || !(await bcrypt.compare(current, row.password_hash)))
-      throw new Error("Current password is incorrect.");
-    const hash = await bcrypt.hash(password, 12);
-    await db.execute("UPDATE admins SET password_hash=? WHERE id=?", [
-      hash,
-      req.session.user.id,
-    ]);
-    req.flash("success", "Password changed successfully.");
-  } catch (e) {
-    req.flash("error", e.message);
-  }
-  res.redirect("/settings");
-});
-
 module.exports = router;

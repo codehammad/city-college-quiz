@@ -1406,13 +1406,9 @@ a {
 
 .settings-grid {
 	display: grid;
-	grid-template-columns: repeat(2, minmax(0, 1fr));
+	grid-template-columns: minmax(0, 700px);
 	gap: 18px;
 	max-width: 1000px
-}
-
-.settings-grid.team-settings-grid {
-	grid-template-columns: minmax(0, 700px)
 }
 
 .settings-card {

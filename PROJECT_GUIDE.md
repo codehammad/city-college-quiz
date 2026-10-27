@@ -13,7 +13,7 @@ city-college-quiz/
 │   └── auth.js                Login, role checks, and form token checks
 ├── routes/                    URL handling and the related database work
 │   ├── authRoutes.js          Login and logout
-│   ├── settingsRoutes.js      Account settings, admin password, and profile photo
+│   ├── settingsRoutes.js      Account profile and profile photo
 │   ├── dashboardRoutes.js     Admin dashboard
 │   ├── campusRoutes.js        Campus management
 │   ├── adminTeamRoutes.js     Admin tools for creating and managing teams
